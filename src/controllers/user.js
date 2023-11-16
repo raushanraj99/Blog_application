@@ -47,7 +47,7 @@ const userLogin= async (req,res)=>{
       const {email,password} = req.body;
       const user = await User.findOne({email});
       if(!user) return res.render("login",{
-        success:"Enter Valid Email"
+        success:" * Email Does not Exists, Register first"
       })
       
       const isMatch = await bcrypt.compare(password,user.password)
@@ -62,7 +62,7 @@ const userLogin= async (req,res)=>{
 
       res.cookie("token",token,{
         httpOnly:true,
-        expires:new Date(Date.now()+15*60*1000)
+        expires:new Date(Date.now()+15*60*10000)
       }).redirect("/")
 
     } catch (error) {
@@ -91,8 +91,7 @@ const userProfile =async (req,res)=>{
    for(let i = 0 ;i<userInfo.blogs.length;i++){
     data.push(await Blogpost.findById(userInfo.blogs[i]));
    }
-   console.log("All Data :: ",data)
-  //  var sizeofdata = data.length
+  //  console.log("All Data :: ",data)
   //  console.log("size : ",sizeofdata)
 
  

@@ -39,20 +39,7 @@ app.get("/",async(req,res)=>{
         },
       },
     ]);
-    
 
-
-   // finding user name and
-   //  userinfo = []
-
-   //  for (let i = 0;i<blogs.length;i++){
-   //    //  console.log("Blogs id : ", blogs[i].user.toString())
-   //    let userID = blogs[i].user.toString()
-   //    console.log("User id : ",userID)
-   //    let userval = await User.findById(userID)
-   //    userinfo.push(userval)
-
-   //  }
 
    //  console.log("only User : ",userinfo)
    res.render("index",{

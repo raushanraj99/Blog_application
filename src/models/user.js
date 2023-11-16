@@ -12,7 +12,7 @@ const registerUser = new mongoose.Schema({
    },
    blogs:[
       {
-         type:mongoose.Types.ObjectId,
+         type:mongoose.Schema.Types.ObjectId,
          ref:"blogpost"
       },
    ]

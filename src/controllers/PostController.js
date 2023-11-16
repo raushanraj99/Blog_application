@@ -54,4 +54,55 @@ const readingpage =async (req,res)=>{
 
 
 
-module.exports = { createPostrouter, createPost ,readingpage};
+
+// delete post get method....
+const deletePost = async (req, res) => {
+  try {
+
+    let queryParams=req._parsedOriginalUrl.query
+    if(!queryParams){
+      return res.status(401).json({message:"No Query Params Found"})
+      }else{
+        const BlogModel = await Blogpost.findOne({_id:queryParams})
+
+        let userId = BlogModel.user.toString()
+        const userInfo =await User.findById(userId)
+
+
+        if (userInfo.blogs.length == 0){
+          blogsData=0
+          res.redirect("index")
+        }else{
+
+        for(let i =0;i<userInfo.blogs.length;i++){
+
+            if(userInfo.blogs[i].toString() == BlogModel._id.toString()){
+
+              await userInfo.blogs.pull(userInfo.blogs[i])
+              await userInfo.save()  
+            }
+        }
+        await BlogModel.deleteOne()
+        console.log("blog model post also deleted ")
+
+
+
+        res.redirect("profile")
+
+      }
+
+      }
+
+  } catch (err) {
+      console.log("Deleting post with admin list error : ",err)
+    }
+
+  };
+
+
+
+
+
+
+
+module.exports = { createPostrouter, createPost ,readingpage,deletePost};

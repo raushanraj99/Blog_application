@@ -8,7 +8,7 @@ const Posts =new mongoose.Schema({
          type:String,
       },
       user: {
-         type: mongoose.Types.ObjectId,
+         type: mongoose.Schema.Types.ObjectId,
          ref: "userAuth", // Reference the model name
        },
 },{timestamps:true})
