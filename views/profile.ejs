@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="./css/profile.css">
+   
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+   <!-- Navbar setup  -->
+
+   <%- include('./partials/Navbar') %>
+
+   <h1>Profile page  </h1>
+
+   <div class="container">
+      <div class="row">
+          <div class="col-md-3">
+              <div class="osahan-account-page-left shadow-sm bg-white h-100">
+                  <div class="border-bottom p-4">
+                      <div class="osahan-user text-center">
+                          <div class="osahan-user-media">
+                              <div class="osahan-user-media-body">
+                                  <h3 class="mb-2"><%= userData.name %></h3>
+                                  <p><%= userData.email %></p>
+                                  <p>Total Post : <%= NoOfPost %> </p>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-9">
+              <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+                  <div class="tab-content" id="myTabContent">
+                      <div class="tab-pane fade active show" id="payments" role="tabpanel" aria-labelledby="payments-tab">
+                          <h4 class="font-weight-bold mt-0 mb-4">All posts : <%= NoOfPost %> </h4>
+                          <div class="row">
+
+                           <% blogsData.forEach((posts)=>{ %>
+
+                              <div class="col-md-6">
+                                  <div class="bg-white card payments-item mb-4 shadow-sm">
+                                      <div class="gold-members p-4">
+                                          <a href="#">
+                                          </a>
+                                          <div class="media">
+                                              <div class="media-body">
+                                                 <a href="#">
+                                                     <i class="icofont-visa icofont-4x"></i>
+                                                 </a>
+                                                  <a href="#">
+                                                      <h4 class="mb-1"><%=posts.title %></h4>
+                                                   </a>
+                                                   <p class="description"><%=posts.description.substring(0,100) + "..."  %></p>
+                                                  <p class="mb-0 text-black font-weight-bold">
+                                                      <a href="#">
+                                                      </a><a class="text-danger me-4" data-toggle="modal" data-target="#delete-address-modal" href="/readpost?id=<%=posts._id %>">VIEW</a>
+                                                      </a><a class="text-danger" data-toggle="modal" data-target="#delete-address-modal" href="#">DELETE</a>
+                                                   
+                                                   </p>
+                                              </div>
+                                          </div>
+  
+                                      </div>
+                                  </div>
+                              </div>
+                              <% }) %>
+
+
+                          </div>                    
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- Bootstrap js  -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>

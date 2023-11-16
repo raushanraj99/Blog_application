@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="./css/style.css">
+   
+   <!-- Bootstrap CSS -->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+   <!-- Navbar setup  -->
+
+   <%- include('./partials/Navbar') %>
+
+   <h1>Write your Post </h1>
+
+   <div class="container-fluid ">
+      <form action="" method="POST">
+         <div class="form-group">
+           <label for="title">Title</label>
+           <input name="title" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+         </div>
+         <br class="form-group">
+           <label >Description</label> </br>
+           <textarea name="description" type="text" rows="10" cols="200"  placeholder="About you blogs" ></textarea>
+         </div>
+         
+         <button type="submit" class="btn btn-primary ms-5 mt-4">Post</button>
+       </form>
+       <a class="nav-link text-white btn btn-warning" href="/logout">Logout</a>
+
+</div>
+
+
+
+
+
+
+
+
+   <!-- Bootstrap js  -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
