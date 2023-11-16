@@ -83,7 +83,6 @@ const logout =(req,res)=>{
   }
 }
 
-
 // user Profile 
 const userProfile =async (req,res)=>{
   try {

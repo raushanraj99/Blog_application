@@ -4,7 +4,7 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>BlogPage</title>
-   <link rel="stylesheet" href="./css/login.css">
+   <link rel="stylesheet" href="./css/registrationform.css">
    
    <!-- Bootstrap CSS -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -15,7 +15,7 @@
 
    <%- include('./partials/Navbar') %>
 
-   <h1>Login page  </h1>
+   <!-- <h1>Login page  </h1>
 
    <div class="container-fluid ">
       <form method="POST">
@@ -27,15 +27,30 @@
            <label for="exampleInputPassword1">Password</label>
            <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
          </div>
-         <p class="invalidMessage"><%= locals.success %></p>
+         <p class="invalidMessage"></p>
          <button type="submit" class="btn btn-primary mt-4">Login</button> &nbsp; &nbsp; &nbsp;
          <a href="/register">Register</a>
-       </form>
+       </form> -->
 
 
 
+       <!-- ////////////////////   login Page /////////////////////////// -->
+       <div class="register-photo">
+         <div class="form-container">
+            <form method="POST">
+               <h2 class="text-center"><strong>Login</strong> to your account.</h2>
 
-
+               <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" required></div>
+               <div class="form-group"><input class="form-control mt-2" type="password" name="password" placeholder="Password" required></div>
+               <p class="invalidMessage text-danger"><%= locals.success %></p>
+               <div class="form-group"><button class="btn btn-primary btn-block" type="submit">LogIn</button></div>
+            </br>
+               <a href="/register" class="already">Don't have an account ? Register here.</a></form> 
+               <div class="image-holder ">
+                 <p class="title-name">Blog Post </p>
+               </div>
+         </div>
+     </div>
 
 
 
