@@ -8,9 +8,8 @@ const isAuthenticated = async (req, res, next) => {
     if (!token) {
       return res.redirect("login");
     } else {
-      const decoded = jwt.verify(token, "specialdatatestingpurpose");
-      // console.log("Decoded valule ;:: ",decoded)
-      // console.log("req ::::: value ;;;;   ",req)
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      
       req.user = await User.findById(decoded._id);
 
       next();

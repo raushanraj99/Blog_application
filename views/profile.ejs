@@ -59,8 +59,9 @@
                                                    <p class="description"><%=posts.description.substring(0,100) + "..."  %></p>
                                                   <p class="mb-0 text-black font-weight-bold">
                                                       <a href="#">
-                                                      </a><a class="text-danger me-4" data-toggle="modal" data-target="#delete-address-modal" href="/readpost?id=<%=posts._id %>">VIEW</a>
-                                                      </a><a class="text-danger" data-toggle="modal" data-target="#delete-address-modal" href="/delete?<%=posts._id%>">DELETE</a>
+                                                      </a><a class="text-danger me-4"  href="/readpost?id=<%=posts._id %>">VIEW</a>
+                                                      </a><a class="text-danger me-4"  href="/edit?id=<%=posts._id %>">EDIT</a>
+                                                      </a><a class="text-danger"  href="/delete?<%=posts._id%>">DELETE</a>
                                                    
                                                    </p>
                                               </div>

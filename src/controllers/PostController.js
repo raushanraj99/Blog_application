@@ -52,9 +52,6 @@ const readingpage =async (req,res)=>{
 }
 
 
-
-
-
 // delete post get method....
 const deletePost = async (req, res) => {
   try {
@@ -101,8 +98,30 @@ const deletePost = async (req, res) => {
 
 
 
+// Edit Post 
+const editPost=async (req,res)=>{
+  const {title,description} = req.body;
+  const {id} = req.query
+  
+  const BlogPost =await Blogpost.findById(id)
+  console.log("Blog Post : ",BlogPost)
+
+  res.render("edit",{
+      user_id:id,
+      title : BlogPost.title,
+      description : BlogPost.description
+  })
+
+}
+
+  // edit post.. post request
+  const editPostContent = (req,res)=>{
+    console.log("Post editing..")
+  }
 
 
 
 
-module.exports = { createPostrouter, createPost ,readingpage,deletePost};
+
+
+module.exports = { createPostrouter, createPost ,readingpage,deletePost,editPost,editPostContent};

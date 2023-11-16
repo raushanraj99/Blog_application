@@ -58,7 +58,7 @@ const userLogin= async (req,res)=>{
 
       // jsonwebtoken
    
-      const token = jwt.sign({_id:user._id},"specialdatatestingpurpose")
+      const token = jwt.sign({_id:user._id},process.env.JWT_SECRET)
 
       res.cookie("token",token,{
         httpOnly:true,
