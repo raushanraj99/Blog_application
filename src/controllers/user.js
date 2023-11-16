@@ -34,6 +34,8 @@ const registerUser = async (req, res) => {
     res.redirect("login");
   } catch (error) {
     console.log("Registration Failed ", error);
+    res.redirect("register");
+
   }
 };
 
@@ -67,7 +69,8 @@ const userLogin= async (req,res)=>{
 
     } catch (error) {
       console.log("Logging in error ");
-      
+      res.render("login")
+
     }
 }
 
@@ -76,8 +79,8 @@ const logout =(req,res)=>{
     res.clearCookie("token").redirect("/login")
   } catch (error) {
     console.log("logout Error ")
+    res.render("index")
   }
-
 }
 
 

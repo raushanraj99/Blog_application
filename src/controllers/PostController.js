@@ -11,7 +11,6 @@ const createPostrouter = (req, res) => {
 const createPost = async (req, res) => {
   try {
     const { title, description } = req.body;
-
     // console.log("this is requrest of user : ",req.user);
     const blogpost = await Blogpost.create({
       title,
@@ -38,6 +37,7 @@ const createPost = async (req, res) => {
     })
   } catch (error) {
     console.log("Post Creation Error ");
+    res.redirect("createPost")
   }
 };
 
@@ -91,7 +91,8 @@ const deletePost = async (req, res) => {
       }
 
   } catch (err) {
-      console.log("Deleting post with admin list error : ",err)
+      console.log("Deleting post Error : ",err)
+      res.redirect("profile")
     }
 
   };
@@ -104,7 +105,7 @@ const editPost=async (req,res)=>{
   const {id} = req.query
   
   const BlogPost =await Blogpost.findById(id)
-  console.log("Blog Post : ",BlogPost)
+  // console.log("Blog Post : ",BlogPost)
 
   res.render("edit",{
       user_id:id,
@@ -115,8 +116,24 @@ const editPost=async (req,res)=>{
 }
 
   // edit post.. post request
-  const editPostContent = (req,res)=>{
-    console.log("Post editing..")
+  const editPostContent = async (req,res)=>{
+
+    try {
+
+      const queryId = req.query.id;
+      const {title,description} = req.body;
+      const myPost = await Blogpost.findById(queryId)
+      myPost.title = title,
+      myPost.description = description
+      myPost.save()
+
+      res.redirect("profile")
+      
+    } catch (error) {
+      console.log("Editing Error")
+      res.redirect("profile")
+    }
+      
   }
 
 
