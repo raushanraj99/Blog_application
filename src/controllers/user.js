@@ -88,6 +88,9 @@ const userProfile =async (req,res)=>{
   try {
 
    let userInfo = req.user;
+   if (!userInfo){
+    return res.redirect("index")
+   }
   //  console.log(userInfo.blogs[1].toString())
    var data = [];
    for(let i = 0 ;i<userInfo.blogs.length;i++){

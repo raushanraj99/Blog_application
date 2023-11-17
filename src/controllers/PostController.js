@@ -18,7 +18,7 @@ const createPost = async (req, res) => {
       user: req.user,
     });
     // console.log("blogpost User id : ",blogpost)
-    const user = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       {
         _id: blogpost.user,
       },
@@ -28,117 +28,97 @@ const createPost = async (req, res) => {
         },
       }
     );
-    // find all Blogs 
-    const allBlogs =await Blogpost.find()
-    // console.log("User wala : : ",allBlogs)
 
-    res.render("index",{
-      allPost:allBlogs
-    })
+    const allBlogs = await Blogpost.find();
+
+    res.render("index", {
+      allPost: allBlogs,
+    });
   } catch (error) {
     console.log("Post Creation Error ");
-    res.redirect("createPost")
+    res.redirect("createPost");
   }
 };
 
-const readingpage =async (req,res)=>{
-   const {id} = req.query;
-   
-   const postInfo = await Blogpost.findById(id)
+const readingpage = async (req, res) => {
+  const { id } = req.query;
 
-   res.render("readpost",{
-      postInfo:postInfo
-   })
-}
+  const postInfo = await Blogpost.findById(id);
 
+  res.render("readpost", {
+    postInfo: postInfo,
+  });
+};
 
 // delete post get method....
 const deletePost = async (req, res) => {
   try {
+    let queryParams = req._parsedOriginalUrl.query;
+    if (!queryParams) {
+      return res.status(401).json({ message: "No Query Params Found" });
+    } else {
+      const BlogModel = await Blogpost.findOne({ _id: queryParams });
 
-    let queryParams=req._parsedOriginalUrl.query
-    if(!queryParams){
-      return res.status(401).json({message:"No Query Params Found"})
-      }else{
-        const BlogModel = await Blogpost.findOne({_id:queryParams})
+      let userId = BlogModel.user.toString();
+      const userInfo = await User.findById(userId);
 
-        let userId = BlogModel.user.toString()
-        const userInfo =await User.findById(userId)
-
-
-        if (userInfo.blogs.length == 0){
-          blogsData=0
-          res.redirect("index")
-        }else{
-
-        for(let i =0;i<userInfo.blogs.length;i++){
-
-            if(userInfo.blogs[i].toString() == BlogModel._id.toString()){
-
-              await userInfo.blogs.pull(userInfo.blogs[i])
-              await userInfo.save()  
-            }
+      if (userInfo.blogs.length == 0) {
+        blogsData = 0;
+        res.redirect("index");
+      } else {
+        for (let i = 0; i < userInfo.blogs.length; i++) {
+          if (userInfo.blogs[i].toString() == BlogModel._id.toString()) {
+            await userInfo.blogs.pull(userInfo.blogs[i]);
+            await userInfo.save();
+          }
         }
-        await BlogModel.deleteOne()
-        console.log("blog model post also deleted ")
-
-
-
-        res.redirect("profile")
-
+        await BlogModel.deleteOne();
+        console.log("blog model post also deleted ");
+        res.redirect("profile");
       }
-
-      }
-
-  } catch (err) {
-      console.log("Deleting post Error : ",err)
-      res.redirect("profile")
     }
+  } catch (err) {
+    console.log("Deleting post Error : ", err);
+    res.redirect("profile");
+  }
+};
 
-  };
+// Edit Post
+const editPost = async (req, res) => {
+  const { title, description } = req.body;
+  const { id } = req.query;
 
-
-
-// Edit Post 
-const editPost=async (req,res)=>{
-  const {title,description} = req.body;
-  const {id} = req.query
-  
-  const BlogPost =await Blogpost.findById(id)
+  const BlogPost = await Blogpost.findById(id);
   // console.log("Blog Post : ",BlogPost)
 
-  res.render("edit",{
-      user_id:id,
-      title : BlogPost.title,
-      description : BlogPost.description
-  })
+  res.render("edit", {
+    user_id: id,
+    title: BlogPost.title,
+    description: BlogPost.description,
+  });
+};
 
-}
+// edit post.. post request
+const editPostContent = async (req, res) => {
+  try {
+    const queryId = req.query.id;
+    const { title, description } = req.body;
+    const myPost = await Blogpost.findById(queryId);
+    (myPost.title = title), (myPost.description = description);
+    myPost.save();
 
-  // edit post.. post request
-  const editPostContent = async (req,res)=>{
-
-    try {
-
-      const queryId = req.query.id;
-      const {title,description} = req.body;
-      const myPost = await Blogpost.findById(queryId)
-      myPost.title = title,
-      myPost.description = description
-      myPost.save()
-
-      res.redirect("profile")
-      
-    } catch (error) {
-      console.log("Editing Error")
-      res.redirect("profile")
-    }
-      
+    res.redirect("profile");
+  } catch (error) {
+    console.log("Editing Error");
+    res.redirect("profile");
   }
+};
 
-
-
-
-
-
-module.exports = { createPostrouter, createPost ,readingpage,deletePost,editPost,editPostContent};
+module.exports = {
+  createPostrouter,
+  createPost,
+  readingpage,
+  deletePost,
+  editPost,
+  editPostContent,
+};

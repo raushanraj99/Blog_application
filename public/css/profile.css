@@ -7,7 +7,7 @@ body{
    width: 47px;
 }
 .description{
-   height: 8vh;
+   height: 100%;
 }
 .order-list .btn {
    border-radius: 2px;
