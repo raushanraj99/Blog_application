@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors")
 const path = require("path")
 const dotenv = require("dotenv");
 const userRouter = require("./src/routes/routers")
@@ -7,7 +8,9 @@ const cookieParser = require("cookie-parser")
 const Blogpost = require("./src/models/post")
 const User = require("./src/models/user")
 const bodyParser = require("body-parser")
-dotenv.config()
+dotenv.config({
+  path:'./config.env'
+})
 
 const app = express()
 module.exports = app;
@@ -19,10 +22,13 @@ app.use(bodyParser.urlencoded({ // to parse the data in urlencoded form
 }))
 app.use(express.static(path.join(path.resolve(),"public")))
 app.use(cookieParser())
+app.use(cors())
+
 app.set("view engine","ejs")
 app.set("views",path.resolve("./views"))
 app.use('',userRouter)
 app.use('',postRouter)
+
 
 
 app.get("/",async(req,res)=>{
