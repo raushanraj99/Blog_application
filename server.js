@@ -1,4 +1,3 @@
-
 const app = require("./app")
 const DBconnect = require("./src/database/databaseConn")
 DBconnect()
