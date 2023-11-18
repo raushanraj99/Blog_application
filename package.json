@@ -1,5 +1,5 @@
 {
-  "name": "Blog App",
+  "name": "blogapplication",
   "version": "1.0.0",
   "description": "Blog Application to read and write the blogs based on user Authentication",
   "main": "app.js",
