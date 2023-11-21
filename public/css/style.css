@@ -36,6 +36,7 @@
         font-size: 10px;
       }
 
+
       h5 {
         margin: 0 0 1rem 0;
         padding-top: 1rem;
@@ -69,4 +70,10 @@
 
       .btn_primary:hover {
         box-shadow: 0px 5px 1rem rgba(255, 94, 98, 0.5);
+      }
+
+      @media (max-width:600px) {
+        .col-form-label{
+          display: none;
+        }
       }
