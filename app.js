@@ -32,43 +32,38 @@ app.use('',postRouter)
 
 
 app.get("/",async(req,res)=>{
- try {
-   // const blog =await Blogpost.find({})
-   // console.log(blog[0].createdAt.toString())
-
-   const blogs = await Blogpost.aggregate([
-      {
-        $addFields: {
-          createdAtDate: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
-        },
-      },
-    ]);
-    
-   //  console.log("only User : ",userinfo)
-   res.render("index",{
-      allPost:blogs,
-   })
-
-  } catch (error) {
-    console.log("Profile loading error")
+  try {
+      const blogs = await Blogpost.aggregate([
+       {
+         $addFields: {
+           createdAtDate: { $dateToString: { format: "%d-%m-%Y", date: "$createdAt" } },
+         },
+       },
+     ]);
+ 
+    let idList = []
+    let tempUserList = []
+    for (let i=0 ;i<blogs.length;i++){
+       selectedId = blogs[i].user.toString()
+       const userInfo = await User.findById(selectedId)
+       tempUserList.push(userInfo.name)
+       blogs[i]['username'] = tempUserList[i]
+     }
+   
     res.render("index",{
        allPost:blogs,
+ 
     })
-   
-}
-})
-
-
-
-// const app = require("./app")
-// const DBconnect = require("./src/database/databaseConn")
-// DBconnect()
-
-
-
-// app.listen(process.env.PORT || 8000,()=>{
-//    console.log(`Server is working fine on ${process.env.PORT}`) 
-// })
-
+ 
+    
+   } catch (error) {
+     console.log("Profile loading error")
+     res.render("index",{
+        allPost:blogs,
+     })
+    
+ }
+ })
+ 
 
 

@@ -25,7 +25,11 @@
 
                   <div class=" m-3 blog_post" style="width: 19rem">
                      <div class="card-body container_copy">
-                        <h6> <%=posts.createdAtDate %> </h6>
+                        <div class="d-flex justify-content-between">
+                           <h6 class="text-capitalize"><%=posts.username %></h6>
+                           <h6> <%=posts.createdAtDate %> </h6>
+                        </div>
+                        
                         <h5> <%=posts.title.substring(0,55) + "." %> </h5>
                         <p class="card-text">
                            <%=posts.description.substring(0,80) + "..." %>
