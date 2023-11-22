@@ -41,14 +41,34 @@ const createPost = async (req, res) => {
 };
 
 const readingpage = async (req, res) => {
-  const { id } = req.query;
+  try {
+    const { id } = req.query;
 
-  const postInfo = await Blogpost.findById(id);
+    const postInfo = await Blogpost.findById(id)
+    
+    // console.log("Post Info : ",postInfo);
+    const userInfo = await User.findById(postInfo.user.toString());
+    // console.log(userInfo);
 
-  res.render("readpost", {
-    postInfo: postInfo,
-  });
+    res.render("readpost", {
+      postInfo: postInfo,
+      userInfo:userInfo,
+    });
+
+
+
+  } catch (error) {
+    console.log("error in reading single page : ",error);
+    res.redirect("index")
+  }
+
+
 };
+
+
+
+
+
 
 // delete post get method....
 const deletePost = async (req, res) => {
